@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glow AI | Next-Gen Skincare Detection</title>
+    <meta name="description" content="Advanced AI analysis for personalized skincare insights.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;600;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="dynamic-background">
+        <div class="glow-orb orb-purple"></div>
+        <div class="glow-orb orb-cyan"></div>
+        <div class="glow-orb orb-pink"></div>
+    </div>
+
+    <div class="grid-overlay"></div>
+
+    <nav class="top-nav">
+        <div class="nav-content">
+            <div class="nav-logo">Glow<span class="highlight">.AI</span></div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#analysis">Scanner</a></li>
+                <li><a href="#" id="navChatLink">Chat</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Home Section -->
+        <section id="home" class="page-section hero-section">
+            <div class="section-content hero-content">
+                <div class="logo-container">
+                    <div class="logo-mark"></div>
+                    <h1 class="logo-text">Glow<span class="highlight">.AI</span></h1>
+                </div>
+                <p class="app-subtitle">Deep Learning Skincare Analysis</p>
+                <p class="hero-desc">Experience the next generation of dermatological diagnostics. Advanced neural networks providing instant, secure, and accurate skin condition analysis.</p>
+                <a href="#analysis" class="btn-primary action-btn hero-btn" style="width: 250px; text-decoration: none;">
+                    <div class="btn-bg"></div>
+                    <span class="btn-text">Start Scan</span>
+                </a>
+            </div>
+        </section>
+
+
+
+        <!-- Analysis Section -->
+        <section id="analysis" class="page-section analysis-section">
+            <div class="section-content app-container">
+                <div class="section-header">
+                    <h2 class="section-title">Diagnostic Interface</h2>
+                    <p class="section-subtitle">Upload a clear photo of the target area to begin.</p>
+                </div>
+
+                <section class="panel-card upload-panel">
+                    <div class="panel-header">
+                        <h2 class="panel-title">Scanner</h2>
+                        <div class="status-indicator">
+                            <span class="pulse-dot"></span>
+                            <span class="status-text">System Ready</span>
+                        </div>
+                    </div>
+                    
+                    <div class="upload-zone" id="uploadArea">
+                        <div class="upload-border-gradient"></div>
+                        <input type="file" id="fileInput" accept="image/png, image/jpeg, image/jpg" hidden>
+                        
+                        <div class="upload-content" id="uploadContent">
+                            <div class="icon-wrapper">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="upload-icon"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                            </div>
+                            <span class="upload-title">Drop Target Area</span>
+                            <span class="upload-subtitle">Drag image here or click to browse</span>
+                        </div>
+                        
+                        <div class="preview-container" id="previewContainer" style="display: none;">
+                            <img id="imagePreview" alt="Target Subject">
+                            <div class="preview-overlay"></div>
+                            <button class="remove-btn" id="removeBtn" aria-label="Clear Image">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                            </button>
+                            <div class="scanner-line"></div>
+                        </div>
+                    </div>
+
+                    <div class="context-form">
+                        <h3 class="context-title">Optional Info</h3>
+                        <div class="context-grid">
+                            <div class="form-group">
+                                <label for="skin_type">Your Skin Type (Optional)</label>
+                                <select id="skin_type" name="skin_type">
+                                    <option value="auto">Auto-detect</option>
+                                    <option value="0">Dry</option>
+                                    <option value="1">Oily</option>
+                                    <option value="2">Combination</option>
+                                    <option value="3">Normal</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="btn-primary action-btn" id="analyzeBtn" disabled>
+                        <span class="btn-text">Analyze Skin</span>
+                        <div class="loader-container" id="btnLoader" style="display: none;">
+                            <div class="cyber-loader"></div>
+                        </div>
+                    </button>
+                </section>
+
+                <!-- Results Section -->
+                <section class="results-section" id="resultsContainer" style="display: none;">
+                    <div class="panel-card primary-result-card">
+                        <h3 class="result-section-title">✨ Analysis Results</h3>
+                        
+                        <div class="result-item primary">
+                            <div class="result-header">
+                                <span class="result-label">🎯 Primary Skin Type</span>
+                                <span class="result-confidence" id="skinTypeConfidenceText">--</span>
+                            </div>
+                            <div class="result-value" id="skinTypeResult">Analyzing...</div>
+                            <div class="confidence-bar">
+                                <div class="confidence-fill" id="skinTypeConfidenceFill" style="width: 0%;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel-card conditions-card" id="conditionsCard">
+                        <h3 class="result-section-title">🔍 Detected Conditions</h3>
+                        <div id="conditionsList" class="conditions-list"></div>
+                    </div>
+
+                    <div class="panel-card issues-card" id="issuesCard" style="display: none;">
+                        <h3 class="result-section-title">⚠️ Detected Issues</h3>
+                        <div id="issuesList" class="issues-list"></div>
+                    </div>
+
+                    <div class="panel-card recommendations-card">
+                        <h3 class="result-section-title">💡 Care Tips</h3>
+                        <ul id="recommendationsList" class="recommendations-list"></ul>
+                    </div>
+
+                    <button class="btn-secondary action-btn" id="askChatbotBtn">
+                        <span>💬 Ask Chatbot for More Details</span>
+                    </button>
+                </section>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Floating Chatbot Widget -->
+    <div class="chatbot-container">
+        <button class="chatbot-toggle" id="chatbotToggle" aria-label="Toggle Chat">
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+        </button>
+        
+        <div class="chat-window" id="chatWindow">
+            <div class="chat-header">
+                <span class="chat-title">💬 Skincare Assistant</span>
+                <button class="chat-close" id="chatClose">&times;</button>
+            </div>
+            
+            <div class="chat-messages" id="chatMessages">
+                <div class="message bot-message">
+                    <div class="message-avatar">🤖</div>
+                    <div class="message-content">Hi! I'm your AI skincare expert. Ask me about ingredients, routines, or specific skin conditions!</div>
+                </div>
+            </div>
+
+            <div class="quick-prompts" style="padding: 0 1rem; margin-bottom: 0.5rem; display: flex; flex-wrap: wrap; gap: 0.5rem;">
+                <button class="quick-prompt-btn" data-prompt="What causes acne?">Acne</button>
+                <button class="quick-prompt-btn" data-prompt="How to treat dry skin?">Dry Skin</button>
+                <button class="quick-prompt-btn" data-prompt="Tell me about niacinamide">Niacinamide</button>
+            </div>
+
+            <div class="chat-input-wrapper">
+                <input type="text" id="chatInput" class="chat-input-field" placeholder="Ask about skincare..." />
+                <button id="sendChatBtn" class="chat-send-btn" title="Send">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="22" y1="2" x2="11" y2="13"></line>
+                        <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="app-footer">
+        <p>&copy; 2024 Glow.AI - Advanced Skincare Analysis | Your images are never stored</p>
+    </footer>
+
+    <script src="script.js?v=3"></script>
+</body>
+</html>

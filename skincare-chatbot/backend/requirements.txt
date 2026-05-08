@@ -1,0 +1,10 @@
+Flask
+Flask-CORS
+tensorflow
+opencv-python
+numpy
+Werkzeug
+scikit-learn
+pandas
+xgboost
+joblib
